@@ -8,19 +8,30 @@
 // Alternately, you can remove 2 to get the strictly increasing sequence [1, 3].
 
 function almostIncreasingSequence(sequence: number[]): boolean {
-  let count = 0;
-  for (let i = 0; i < sequence.length; i++) {
-    if (sequence[i] <= sequence[i - 1]) {
-      count++;
-      if (
-        sequence[i] <= sequence[i - 2] &&
-        sequence[i + 1] <= sequence[i - 1]
-      ) {
-        return false;
+  let check = 0;
+  function split(seq: number[]) {
+    for (let i = 0; i < seq.length - 1; i++) {
+      if (seq[i] < seq[i + 1]) {
+        continue;
+      } else {
+        return;
       }
     }
+    check++;
   }
-  return count <= 1;
+  for (let i = 0; i < sequence.length - 1; i++) {
+    if (sequence[i] < sequence[i + 1]) continue;
+    else {
+      let seq1 = sequence.slice();
+      seq1.splice(i, 1);
+      split(seq1);
+      let seq2 = sequence.slice();
+      seq2.splice(i + 1, 1);
+      split(seq2);
+      break;
+    }
+  }
+  return check >= 1 ? true : false;
 }
 
 console.log(almostIncreasingSequence([1, 3, 2, 1]));
