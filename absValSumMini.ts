@@ -4,12 +4,15 @@
 // Example
 // For a = [2, 4, 7], the output should be absoluteValuesSumMinimization(a) = 4.
 // For a = [2, 4, 7, 6], the output should be absoluteValuesSumMinimization(a) = 4.
-// For a = [2, 4, 7, 6, 6], the output should be absoluteValuesSumMinimization(a) = 7.
-// For a = [2, 4, 7, 6, 6, 8], the output should be absoluteValuesSumMinimization(a) = 7.
+// For a = [2, 4, 7, 6, 6], the output should be absoluteValuesSumMinimization(a) = 6.
+// For a = [2, 4, 7, 6, 6, 8], the output should be absoluteValuesSumMinimization(a) = 6.
 
 function absoluteValuesSumMinimization(a: number[]): number {
-  const isEven = a.length % 2 == 0;
-  return isEven ? a[a.length / 2 - 1] : a[Math.floor(a.length / 2)];
+  let meanVal = a.reduce((a, b) => a + b) / a.length;
+  console.log(meanVal);
+  return a.reduce((prev, currVal) =>
+    Math.abs(prev - meanVal) < Math.abs(currVal - meanVal) ? prev : currVal
+  );
 }
 
 console.log(absoluteValuesSumMinimization([2, 4, 7]));

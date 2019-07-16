@@ -9,11 +9,7 @@ function add(param1: number, param2: number): number {
 
 function add2(...param1: number[]): number {
   // using rest operator
-  let total = 0;
-  param1.forEach(num => {
-    total += num;
-  });
-  return total;
+  return param1.reduce((a, b) => a + b);
 }
 
 console.log(add(1, 2));
